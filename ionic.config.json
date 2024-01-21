@@ -1,0 +1,7 @@
+{
+  "name": "habitTracker",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
