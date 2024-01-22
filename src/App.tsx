@@ -10,10 +10,10 @@ import {
   setupIonicReact
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { ellipse, square, triangle } from 'ionicons/icons';
-import Tab1 from './pages/Tab1';
+import { addCircleOutline, calendarClear, calendarClearOutline, calendarOutline, createOutline, listCircle, listCircleOutline, listCircleSharp, listOutline } from 'ionicons/icons';
+import ListHabitsPage from './pages/ListHabitsPage';
 import Tab2 from './pages/Tab2';
-import Tab3 from './pages/Tab3';
+import CreateHabitPage from './pages/CreateHabitPage';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -42,13 +42,13 @@ const App: React.FC = () => (
       <IonTabs>
         <IonRouterOutlet>
           <Route exact path="/tab1">
-            <Tab1 />
+            <ListHabitsPage/>
           </Route>
           <Route exact path="/tab2">
             <Tab2 />
           </Route>
           <Route path="/tab3">
-            <Tab3 />
+            <CreateHabitPage/>
           </Route>
           <Route exact path="/">
             <Redirect to="/tab1" />
@@ -56,16 +56,16 @@ const App: React.FC = () => (
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
           <IonTabButton tab="tab1" href="/tab1">
-            <IonIcon aria-hidden="true" icon={triangle} />
-            <IonLabel>Tab 1</IonLabel>
+            <IonIcon aria-hidden="true" icon={listCircleOutline} />
+            <IonLabel>Habitos</IonLabel>
           </IonTabButton>
           <IonTabButton tab="tab2" href="/tab2">
-            <IonIcon aria-hidden="true" icon={ellipse} />
-            <IonLabel>Tab 2</IonLabel>
+            <IonIcon aria-hidden="true" icon={calendarClearOutline} />
+            <IonLabel>Resumen</IonLabel>
           </IonTabButton>
           <IonTabButton tab="tab3" href="/tab3">
-            <IonIcon aria-hidden="true" icon={square} />
-            <IonLabel>Tab 3</IonLabel>
+            <IonIcon aria-hidden="true" icon={addCircleOutline} />
+            <IonLabel>Crear</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>
