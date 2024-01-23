@@ -1,4 +1,4 @@
-import {IonCard, IonIcon, ioniCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonToolbar, IonButtons, IonButton} from '@ionic/react';
+import {IonCard, IonIcon, IonCardHeader, IonCardSubtitle, IonCardTitle, IonToolbar, IonButtons, IonButton} from '@ionic/react';
 import { createOutline, trashOutline } from 'ionicons/icons';
 export interface HabitPorps {
     name: String;

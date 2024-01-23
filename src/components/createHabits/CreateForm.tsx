@@ -1,55 +1,56 @@
+import React, { useEffect, useState } from "react";
 import { IonButton, IonItem, IonContent, IonInput, IonSelect, IonSelectOption, IonToolbar } from "@ionic/react";
-import { useState } from "react";
-import {useForm, Resolver} from 'react-hook-form';
+import {useForm, SubmitHandler} from 'react-hook-form';
+import { LocalStorage } from "../../pages/CreateHabitPage";
 
 
-interface FormValues {
-    name: String;
-    frequency: String; 
+type FormValues = {
+    name: String
+    frequency: String;
 }
 
 
-const resolver: Resolver<FormValues> = async (values)=>{
-    return {
-        values: values.name ? values : {},
-        errors: !values.name
-        ? {
-            name: {
-                type: "required",
-                message: "Campo Requerido",
-            }
-        } : {},
-
-    }
-}
 
 
-const CreateForm: React.FC<FormProps> = ({onFormSubmit})=>{
+const CreateForm: React.FC<LocalStorage> = ({storage}) =>{
+    const [id, setId] = useState<number>(0);
+    const [habitList, setHabitList] = useState<FormValues[]>([]);
 
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<FormValues>({resolver})
+    } = useForm<FormValues>();
 
-    const onSubmit = handleSubmit((data)=> console.log(data))
+    const saveHabit = async (data) => {
+        if(storage){
+            setHabitList([...habitList, data]);
+            await storage.set(`${id}`, JSON.stringify(habitList));
+            console.log('Datos ingresados correctamente: ', data, habitList);
+            setId(id + 1);
+            console.log(id)
+        }
+    };
+    
+    
+    const onSubmit: SubmitHandler<FormValues> = async (data)=> await saveHabit(data);
 
     return (
         <IonContent color={'light'}>
-            <form onSubmit={onSubmit} style={{margin: '10px', backgroundColor: 'white'}}>
-                <IonItem>
-                    <IonInput label="Nombre del Habito" labelPlacement="floating" fill="outline" placeholder="ingrese el texto"/>
+            <form onSubmit={handleSubmit(onSubmit)} style={{margin: '10px', padding: '10px', backgroundColor: 'white'}}>
+                <IonItem >
+                    <IonInput  {...register('name')} label="Nombre" labelPlacement="floating" fill="outline" placeholder="ingrese el texto"/>
                 </IonItem>
                 <IonItem>
-                    <IonSelect label="Seleccione la Frecuencia" labelPlacement="floating" fill="outline">
-                        <IonSelectOption value={'Diario'}>Diario</IonSelectOption>
+                    <IonSelect {...register('frequency')} label="Seleccione la Frecuencia" labelPlacement="floating" fill="outline">
+                        <IonSelectOption value={'Diaria'}>Diaria</IonSelectOption>
                         <IonSelectOption value={'Semanal'}>Semanal</IonSelectOption>
                         <IonSelectOption value={'Mensual'}>Mensual</IonSelectOption>
                     </IonSelect>
                 </IonItem>
                 <IonItem>
 
-                        <IonButton fill="outline">
+                        <IonButton type="submit" fill="outline">
                                 Agruegar
                         </IonButton>
 
@@ -57,6 +58,6 @@ const CreateForm: React.FC<FormProps> = ({onFormSubmit})=>{
             </form>
         </IonContent>
     )
-}
+};
 
 export default CreateForm;

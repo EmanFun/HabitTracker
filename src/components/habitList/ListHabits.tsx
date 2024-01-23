@@ -1,3 +1,4 @@
+import React from 'react';
 import {IonContent, IonItem, IonLabel, IonList} from '@ionic/react';
 import HabitCard from './HabitCard';
 import { HabitPorps } from './HabitCard';
@@ -8,6 +9,7 @@ interface Habits {
 }
 
 const ListHabits: React.FC<Habits> = ({list}) => {
+
 
     return (
         <IonContent color={'light'}>

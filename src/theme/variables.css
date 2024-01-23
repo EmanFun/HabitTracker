@@ -240,3 +240,18 @@ html {
   https://ionicframework.com/docs/layout/dynamic-font-scaling */
   --ion-dynamic-font: var(--ion-default-dynamic-font);
 }
+
+ion-input {
+  margin: 1rem;
+  
+}
+
+
+ion-select {
+  margin: 1rem;
+}
+
+ion-button {
+  margin: 5px;
+
+}

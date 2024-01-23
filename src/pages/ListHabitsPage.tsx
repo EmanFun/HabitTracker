@@ -1,8 +1,10 @@
+import React from 'react';
 import { IonContent, IonHeader, IonPage, IonSearchbar, IonTitle, IonToolbar } from '@ionic/react';
 import ListHabits from '../components/habitList/ListHabits';
 import './Tab1.css';
+import { LocalStorage } from './CreateHabitPage';
 
-const Tab1: React.FC = () => {
+const Tab1: React.FC<LocalStorage> = ({storage}) => {
 
   const exampleList = [
     {name: "example", frequency: "example"},

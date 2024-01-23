@@ -33,29 +33,46 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import React, { useEffect, useState } from 'react';
+//storage
+import { Storage } from '@ionic/storage';
+
 
 setupIonicReact();
 
-const App: React.FC = () => (
+const App: React.FC = () => {
+
+  const [storage, setStorage] = useState<Storage | null>(null);
+  
+  useEffect(()=>{
+      const initializeStore = async ()=>{
+        const storageInstance = new Storage();
+        await storageInstance.create();
+        setStorage(storageInstance);
+      }
+      initializeStore();
+  },[]);
+
+  return(
   <IonApp>
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
-          <Route exact path="/tab1">
+          <Route exact path="/ListHabits">
             <ListHabitsPage/>
           </Route>
           <Route exact path="/tab2">
             <Tab2 />
           </Route>
-          <Route path="/tab3">
-            <CreateHabitPage/>
+          <Route path="/CreateHabits">
+            <CreateHabitPage storage={storage}/>
           </Route>
           <Route exact path="/">
             <Redirect to="/tab1" />
           </Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
-          <IonTabButton tab="tab1" href="/tab1">
+          <IonTabButton tab="/ListHabits" href="/ListHabits">
             <IonIcon aria-hidden="true" icon={listCircleOutline} />
             <IonLabel>Habitos</IonLabel>
           </IonTabButton>
@@ -63,7 +80,7 @@ const App: React.FC = () => (
             <IonIcon aria-hidden="true" icon={calendarClearOutline} />
             <IonLabel>Resumen</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="tab3" href="/tab3">
+          <IonTabButton tab="/CreateHabits" href="/CreateHabits">
             <IonIcon aria-hidden="true" icon={addCircleOutline} />
             <IonLabel>Crear</IonLabel>
           </IonTabButton>
@@ -72,5 +89,5 @@ const App: React.FC = () => (
     </IonReactRouter>
   </IonApp>
 );
-
+}
 export default App;
